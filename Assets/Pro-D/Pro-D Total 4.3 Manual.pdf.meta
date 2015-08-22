@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: 49e5903d0af935b4da323c6d78870057
+labels:
+- pro-d
+- prod
+- 2d
+- 3d
+- tiled
+- tmx
+- fieldofview
+- fogofwar
+- turn
+- pathfinding
+- AI
+- roguelike
+- grid
+- tile
+- castle
+- map
+- cavern
+- dungeon
+- generation
+- generator
+- random
+- procedural
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
