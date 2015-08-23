@@ -7,8 +7,11 @@ public class Victim : MonoBehaviour {
 	public float fieldOfView;
 	// Use this for initialization
 	void Start () {
+		Debug.Log ("Searching for player");
 		player=GameObject.FindGameObjectsWithTag("Player")[0].transform;
+		Debug.Log ("Acquriing villiany");
 		v=player.gameObject.GetComponentsInChildren<Villian>()[0];
+		Debug.Log (v != null);
 	}
 	
 	// Update is called once per frame

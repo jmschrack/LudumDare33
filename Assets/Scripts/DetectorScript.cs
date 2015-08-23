@@ -19,15 +19,15 @@ public class DetectorScript : MonoBehaviour {
 		return targets [0];
 	}
 	void OnTriggerEnter(Collider other){
-		Debug.Log ("Trigger Enter");
+		//Debug.Log ("Trigger Enter");
 		targets.Add (other.gameObject);
 	}
 	void OnTriggerStay(Collider other) {
-		Debug.Log ("Triggered!");
+		//Debug.Log ("Triggered!");
 		       
 	}
 	void OnTriggerExit(Collider other){
-		Debug.Log ("Trigger Exit");
+		//Debug.Log ("Trigger Exit");
 		targets.Remove (other.gameObject);
 	}
 
