@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 320b1c2af77554f99a1658df4a6d3d5c
+guid: d468ea41f562c6947b8da65154b673e5
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
     100002: Right_Toe_Joint_01
@@ -117,6 +117,11 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -135,11 +140,13 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
@@ -794,4 +801,7 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 3
+  additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

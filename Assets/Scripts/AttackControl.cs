@@ -7,6 +7,7 @@ public class AttackControl : MonoBehaviour {
 	private Villian v;
 	private Transform target;
 	public GameObject blood;
+	private bool animLock=false;
 	// Use this for initialization
 	void Start () {
 		m_Animator = GetComponent<Animator>();
@@ -18,6 +19,7 @@ public class AttackControl : MonoBehaviour {
 	void Update () {
 		if (Input.GetButtonDown("Fire1")&&detection.getTarget()!=null)
 		{
+			target=detection.getTarget().transform;
 			if(v.isSpotted){
 				StartCoroutine(slash ());
 			}else{
@@ -25,7 +27,7 @@ public class AttackControl : MonoBehaviour {
 			}
 			
 		}
-		if (m_Animator.GetBool ("Attack")) {
+		if (animLock) {
 			this.transform.LookAt(target.position);
 		}
 	}
@@ -42,12 +44,26 @@ public class AttackControl : MonoBehaviour {
 		//Debug.Log ("Stabbing");
 		target = detection.getTarget ().transform;
 		m_Animator.SetBool("Attack", true);
-		yield return new WaitForSeconds (0.4f);
-		GameObject temp=(GameObject)Instantiate (blood, target.position, Quaternion.identity);
+		animLock = true;
+		StartCoroutine (animLockTimer ());
+		target.gameObject.GetComponent<Victim> ().pauseAI ();
+		yield return new WaitForSeconds (0.6f);
+		GameObject temp=(GameObject)Instantiate (blood, target.position+new Vector3(0,0.6f,0), Quaternion.identity);
+		m_Animator.SetBool("Attack", false);
 		yield return new WaitForSeconds(0.5f);
 		GameObject.Destroy (temp);
+
+		//this.transform.rotation = Quaternion.identity;
 		yield return new WaitForSeconds(1.7f);
+
 		target.gameObject.GetComponentInChildren<Victim> ().takeDamage (5);
-		m_Animator.SetBool("Attack", false);
+
+		//target.GetComponent<Rigidbody> ().AddForce (this.transform.forward*100);
+
+	}
+	//don't judge me
+	IEnumerator animLockTimer(){
+		yield return new WaitForSeconds(2.0f);
+		animLock = false;
 	}
 }

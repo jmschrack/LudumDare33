@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using BehaviorDesigner.Runtime;
 
 public class Victim : MonoBehaviour {
 	private Transform player;
@@ -9,6 +10,8 @@ public class Victim : MonoBehaviour {
 	private bool lastSeenCursor=false;
 	public bool isAlive=true;
 	public int hitPoints=5;
+	public bool manualSight = false;
+	private BehaviorTree bt;
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("Searching for player");
@@ -16,14 +19,19 @@ public class Victim : MonoBehaviour {
 		Debug.Log ("Acquriing villiany");
 		v=player.gameObject.GetComponentsInChildren<Villian>()[0];
 		Debug.Log (v != null);
+		bt=GetComponent<BehaviorTree> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 pos=player.position-this.transform.position;
-		seePlayer(Mathf.Abs(Vector3.Angle(this.transform.forward,pos))<fieldOfView);
-		pos=v.cursor.transform.position-this.transform.position;
-		seeCursor((Mathf.Abs(Vector3.Angle(this.transform.forward,pos))<fieldOfView));
+		if (isAlive) {
+			Vector3 pos = player.position - this.transform.position;
+			if(manualSight){
+			seePlayer (Mathf.Abs (Vector3.Angle (this.transform.forward, pos)) < fieldOfView);
+			}
+			pos = v.cursor.transform.position - this.transform.position;
+			seeCursor ((Mathf.Abs (Vector3.Angle (this.transform.forward, pos)) < fieldOfView));
+		}
 	}
 
 	/*
@@ -46,15 +54,24 @@ public class Victim : MonoBehaviour {
 		}
 	}
 
+	public void pauseAI(){
+
+		if(bt!=null){
+			bt.DisableBehavior ();
+		}
+	}
+
 	public void takeDamage(int damage){
 		hitPoints -= damage;
 		if (hitPoints <= 0) {
-
+			die ();
 		}
 	}
 
 	void die(){
+		isAlive = false;
 		//ded
+		pauseAI ();
 	}
 
 }

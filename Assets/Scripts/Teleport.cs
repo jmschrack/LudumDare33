@@ -15,18 +15,25 @@ public class Teleport : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		  Ray rayC = Camera.main.ScreenPointToRay(Input.mousePosition);
-		  RaycastHit rh;
-            if (Physics.Raycast(rayC,out rh)){
-				targetIndicator.position=rh.point+new Vector3(0f,0.1f,0f);
-			}
-               // Instantiate(particle, transform.position, transform.rotation);
-		if (CrossPlatformInputManager.GetButtonDown("Jump")&&ready&&!v.isSpotted&&v.isValidCursor)
-		{
-			Debug.Log("Teleporting");
+		Ray rayC = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit rh;
+		if (Physics.Raycast (rayC, out rh)) {
+			targetIndicator.position = rh.point + new Vector3 (0f, 0.1f, 0f);
+		}
+		// Instantiate(particle, transform.position, transform.rotation);
+		if (CrossPlatformInputManager.GetButtonDown ("Jump") && ready && !v.isSpotted && v.isValidCursor) {
+			//Debug.Log("Teleporting");
 			//
-			  this.transform.position=targetIndicator.position;
-                //Instantiate(particle, transform.position, transform.rotation);
+			StartCoroutine (coolDownTimer());
+			this.transform.position = targetIndicator.position;
+			//Instantiate(particle, transform.position, transform.rotation);
 		}
 	}
+
+		IEnumerator coolDownTimer(){
+			ready=false;
+			yield return new WaitForSeconds(coolDown);
+			ready=true;
+		}
+
 }

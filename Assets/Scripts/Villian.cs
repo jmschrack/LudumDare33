@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Villian : MonoBehaviour {
-
+	private Animator m_Animator;
 	public bool isSpotted=false;
 	public GameObject cursor;
 	public bool isValidCursor=true;
@@ -14,6 +14,7 @@ public class Villian : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		m_Animator = this.transform.parent.gameObject.GetComponentInChildren<Animator> ();
 	 this.rend = GetComponent<Renderer>();
         //rend.material.shader = Shader.Find("Standard");
         this.cursorRend=cursor.GetComponent<Renderer>();
@@ -61,5 +62,23 @@ public class Villian : MonoBehaviour {
 			rend.material.SetColor(tag,currentColor);
 			yield return new WaitForSeconds(smoothness);
 		}
+	}
+
+	public void takeDamage(int damage){
+		m_Animator.SetTrigger ("Shot");
+
+		HP -= damage;
+		if (HP <= 0) {
+			die ();
+		}
+		//m_Animator.SetBool ("Shot", false);
+	}
+
+	void die(){
+		m_Animator.SetTrigger ("Death");
+	}
+
+	public void respawn(){
+		m_Animator.SetTrigger ("Respawn");
 	}
 }
