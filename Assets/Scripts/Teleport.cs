@@ -5,11 +5,12 @@ using UnityStandardAssets.CrossPlatformInput;
 public class Teleport : MonoBehaviour {
 	public float coolDown;
 	private bool ready=true;
-	public Transform targetIndicator;
+	private Transform targetIndicator;
 	private Villian v;
 	// Use this for initialization
 	void Start () {
 		v=this.GetComponentsInChildren<Villian>()[0];
+		targetIndicator=v.cursor.transform;
 	}
 	
 	// Update is called once per frame
