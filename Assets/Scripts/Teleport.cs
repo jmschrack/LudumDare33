@@ -7,10 +7,12 @@ public class Teleport : MonoBehaviour {
 	private bool ready=true;
 	private Transform targetIndicator;
 	private Villian v;
+	private VHSPostProcessEffect scanLines;
 	// Use this for initialization
 	void Start () {
 		v=this.GetComponentsInChildren<Villian>()[0];
 		targetIndicator=v.cursor.transform;
+		scanLines = Camera.main.GetComponent<VHSPostProcessEffect> ();
 	}
 	
 	// Update is called once per frame
@@ -31,9 +33,14 @@ public class Teleport : MonoBehaviour {
 	}
 
 		IEnumerator coolDownTimer(){
+			scanLines.enabled = true;
 			ready=false;
+			yield return new WaitForSeconds (1f);
+		scanLines.enabled = false;
 			yield return new WaitForSeconds(coolDown);
 			ready=true;
 		}
+
+
 
 }

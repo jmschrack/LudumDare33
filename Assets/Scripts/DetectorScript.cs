@@ -20,7 +20,8 @@ public class DetectorScript : MonoBehaviour {
 	}
 	void OnTriggerEnter(Collider other){
 		//Debug.Log ("Trigger Enter");
-		targets.Add (other.gameObject);
+		if(other.gameObject.GetComponentInChildren<Victim>()!=null)
+			targets.Add (other.gameObject);
 	}
 	void OnTriggerStay(Collider other) {
 		//Debug.Log ("Triggered!");
