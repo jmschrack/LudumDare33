@@ -25,14 +25,17 @@ public class Villian : MonoBehaviour {
 	void Update () {
 		if ((isSpotted))
 		{
-			rend.material.SetColor("_Color", Color.white);
+			setAllColors(rend,"_Color",Color.white);
+			//rend.material.SetColor("_Color", Color.white);
 		}else{
-			rend.material.SetColor("_Color", Color.black);
+			setAllColors(rend,"_Color",Color.black);
+			//rend.material.SetColor("_Color", Color.black);
 		}
 		if(isValidCursor){
 			cursorRend.material.SetColor("_EmissionColor",Color.magenta);
 		}else{
 			cursorRend.material.SetColor("_EmissionColor",Color.white);
+
 		}
 		colorMode (ds.getTarget () != null);
 	}
@@ -59,8 +62,15 @@ public class Villian : MonoBehaviour {
 		{
 			currentColor = Color.Lerp(from, to, progress);
 			progress += increment;
-			rend.material.SetColor(tag,currentColor);
+			//rend.material.SetColor(tag,currentColor);
+			setAllColors(rend,tag,currentColor);
 			yield return new WaitForSeconds(smoothness);
+		}
+	}
+
+	void setAllColors(Renderer renderer,string tag, Color c){
+		for (int i=0; i<renderer.materials.Length; i++) {
+			renderer.materials[i].SetColor(tag,c);
 		}
 	}
 
