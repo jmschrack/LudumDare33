@@ -33,14 +33,14 @@ public class Victim : MonoBehaviour
 				seePlayer (Mathf.Abs (Vector3.Angle (this.transform.forward, pos)) < fieldOfView);
 			}
 			pos = v.cursor.transform.position - this.transform.position;
-			seeCursor ((Mathf.Abs (Vector3.Angle (this.transform.forward, pos)) < fieldOfView));
+			seeCursor ((Mathf.Abs (Vector3.Angle (this.transform.forward, pos)) < fieldOfView)&&pos.magnitude<25f);
 		}
 	}
 
 	/*
 	 * We do this to avoid a race condition in which a victim sees the villian, but another victim updates later and "doesn't see" the villian.
 	 */ 
-	void seePlayer (bool seen)
+	public void seePlayer (bool seen)
 	{
 		if (seen) {
 			v.isSpotted = lastSeenState = true;

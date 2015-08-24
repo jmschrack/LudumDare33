@@ -6,23 +6,25 @@ public class NPC : MonoBehaviour
 {
 
 	BehaviorTree bt;
+	Victim victim;
 
 	// Use this for initialization
 	void Start ()
 	{
 		bt = GetComponent<BehaviorTree> ();
 		bt.EnableBehavior ();
+		victim = GetComponent<Victim> ();
 
 	}
 
 	public void Seen ()
 	{
-		Debug.Log ("Player Seen!");
+		victim.seePlayer (true);
 	}
 
 	public void NotSeen ()
 	{
-		Debug.Log ("Player Lost!");
+		victim.seePlayer (false);
 	}
 	public void FireWeapon (Transform target)
 	{
