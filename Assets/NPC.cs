@@ -19,16 +19,17 @@ public class NPC : MonoBehaviour
 
 	public void Seen ()
 	{
-		victim.seePlayer (true);
+		//victim.seePlayer (true);
 	}
 
 	public void NotSeen ()
 	{
-		victim.seePlayer (false);
+		//victim.seePlayer (false);
 	}
 	public void FireWeapon (Transform target)
 	{
 		Debug.Log ("Weapong Fired!");
+		victim.shoot ();
 	}
 	// Update is called once per frame
 	void Update ()

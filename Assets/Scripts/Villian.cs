@@ -6,11 +6,13 @@ public class Villian : MonoBehaviour {
 	public bool isSpotted=false;
 	public GameObject cursor;
 	public bool isValidCursor=true;
-	public int HP=20;
+	public int HP=5;
+	public int lives = 3;
 	private Renderer rend; 
 	private Renderer cursorRend;
 	private bool isAggro=false;
 	private DetectorScript ds;
+	public bool isAlive=true;
 	
 	// Use this for initialization
 	void Start () {
@@ -89,6 +91,10 @@ public class Villian : MonoBehaviour {
 	}
 
 	public void respawn(){
+		lives -= 1;
+		HP = 5;
+		isAlive = true;
 		m_Animator.SetTrigger ("Respawn");
+
 	}
 }

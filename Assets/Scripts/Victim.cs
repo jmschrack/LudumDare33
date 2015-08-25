@@ -6,13 +6,14 @@ public class Victim : MonoBehaviour
 {
 	private Transform player;
 	private Villian v;
-	public float fieldOfView;
+	public float fieldOfView=45f;
 	private bool lastSeenState = false;
 	private bool lastSeenCursor = false;
 	public bool isAlive = true;
 	public int hitPoints = 5;
-	public bool manualSight = false;
+	public bool manualSight = true;
 	private BehaviorTree bt;
+	private UIStuff ui;
 	// Use this for initialization
 	void Start ()
 	{
@@ -22,6 +23,7 @@ public class Victim : MonoBehaviour
 		v = player.gameObject.GetComponentsInChildren<Villian> () [0];
 		Debug.Log (v != null);
 		bt = GetComponent<BehaviorTree> ();
+		ui = GameObject.FindGameObjectWithTag ("GlobalVar").GetComponent<UIStuff> ();
 	}
 	
 	// Update is called once per frame
@@ -30,7 +32,8 @@ public class Victim : MonoBehaviour
 		if (isAlive) {
 			Vector3 pos = player.position - this.transform.position;
 			if (manualSight) {
-				seePlayer (Mathf.Abs (Vector3.Angle (this.transform.forward, pos)) < fieldOfView);
+				Debug.DrawRay (this.transform.position,pos);
+				seePlayer (Mathf.Abs (Vector3.Angle (this.transform.forward, pos)) < fieldOfView&&pos.magnitude<10f);
 			}
 			pos = v.cursor.transform.position - this.transform.position;
 			seeCursor ((Mathf.Abs (Vector3.Angle (this.transform.forward, pos)) < fieldOfView)&&pos.magnitude<25f);
@@ -43,6 +46,7 @@ public class Victim : MonoBehaviour
 	public void seePlayer (bool seen)
 	{
 		if (seen) {
+			Debug.DrawRay(transform.position,transform.up*50);
 			v.isSpotted = lastSeenState = true;
 		} else if (lastSeenState) {
 			v.isSpotted = lastSeenState = false;
@@ -69,15 +73,22 @@ public class Victim : MonoBehaviour
 
 	public void takeDamage (int damage)
 	{
-		hitPoints -= damage;
-		if (hitPoints <= 0) {
-			die ();
+		if (isAlive) {
+			hitPoints -= damage;
+			if (hitPoints <= 0) {
+				die ();
+			}
 		}
+	}
+
+	public void shoot(){
+		v.takeDamage (1);
 	}
 
 	void die ()
 	{
 		isAlive = false;
+		ui.targetsLeft -= 1;
 		//ded
 		pauseAI ();
 	}
