@@ -21,7 +21,7 @@ public class UIStuff : MonoBehaviour {
 		if (targetsLeft < 1) {
 			gameWin ();
 		}
-		targetText.text = "Bugs in code:" + targetsLeft;
+		targetText.text = "Humans Left:" + targetsLeft;
 		if (respawn < 1) {
 
 		}
